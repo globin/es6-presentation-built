@@ -8,8 +8,6 @@ var sum = function (a, b) {
 
 //ES6
 var sum = (a, b) => a + b;
-
-
 // --SNIP--
 
-export default { sum };
+export default { sum: sum() };
