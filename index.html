@@ -52,7 +52,6 @@
 							probably most will know some interesting problems of var, let and const fix these
 						</aside>
 					</section>
-
 					<section>
 						<div data-example-code="let-const"></div>
 						<aside class="notes">
@@ -109,10 +108,40 @@
                 </section>
 
 				<section>
+					<h2>for-of loop</h2>
+						<pre>
+							<code>
+var arr = ["banana", "orange", "apple"];
+	for (var i = 0; i < arr.length; i++){
+	arr.forEach(function(entry){
+	console.log(entry);
+});
+
+arr.name = "FRUITS";
+for(var x in arr){
+	console.log(arr[x]);
+}
+
+for(var x of arr){
+	console.log(x);
+}
+}
+							</code>
+						</pre>
+				</section>
+
+				<section>
 					<section>
 						<h2>Functions</h2>
 					</section>
-					<section>Arrow Functions (TODO)</section>
+					<section>
+						<h3> Arrow Functions </h3>
+						<div data-example-code="functions/arrow-functions"></div>
+					</section>
+					<section>
+						<h3> Arrow Functions </h3>
+						<div data-example-code="functions/arrow-functions2"></div>
+					</section>
 					<section>
 						<h3>Default Parameters</h3>
 						<div data-example-code="functions/default-param-old"></div>
@@ -194,6 +223,85 @@
 							Complex example (hopefully nobody ever does that)
 						</aside>
 					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Class + subclassing</h2>
+					</section>
+					<section>
+						<h3>Class</h3>
+						<pre>
+							<code data-trim>
+//ES5
+function Circle(radius) {
+	this.radius = radius;
+	Circle.circlesMade++;
+}
+
+Circle.draw = function draw(circle, canvas) {
+	/* Canvas drawing code */
+};
+
+Object.defineProperty(Circle, "circlesMade", {
+	get: function() {
+		return !this._count ? 0 : this._count;
+},
+
+	set: function(val) {
+		this._count = val;
+	}
+});
+
+Circle.prototype = {
+	area: function area() {
+	return Math.pow(this.radius, 2) * Math.PI;
+	}
+};
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>Class</h3>
+						<pre>
+							<code>
+//ES6
+class Circle {
+constructor(radius) {
+	this.radius = radius;
+	Circle.circlesMade++;
+};
+
+static draw(circle, canvas) {
+	// Canvas drawing code
+};
+
+static get circlesMade() {
+	return !this._count ? 0 : this._count;
+};
+
+static set circlesMade(val) {
+	this._count = val;
+};
+
+area() {
+	return Math.pow(this.radius, 2) * Math.PI;
+};
+
+get radius() {
+	return this._radius;
+};
+
+set radius(radius) {
+	if (!Number.isInteger(radius))
+		throw new Error("Circle radius must be an integer.");
+		this._radius = radius;
+	};
+}
+							</code>
+						</pre>
+					</section>
+					<section>Subclassing TODO</section>
 				</section>
 
 				<section>
