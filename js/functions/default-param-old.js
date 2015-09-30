@@ -16,7 +16,7 @@ function foo(a) {
 
     return a;
 }withoutParam = foo();
-withParam = foo("none default");
+withParam = foo("no default");
 exports["default"] = { withoutParam: _temporalAssertDefined(withoutParam, "withoutParam", _temporalUndefined) && withoutParam, withParam: _temporalAssertDefined(withParam, "withParam", _temporalUndefined) && withParam };
 module.exports = exports["default"];
 //# sourceMappingURL=default-param-old.js.map

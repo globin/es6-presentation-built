@@ -9,6 +9,9 @@ function foo(arg1) {
     return { arg1: arg1, rest: rest };
 }
 
-exports["default"] = foo(1, 2, 3, 4);
+var result = foo(1, 2, 3, 4);
+// --SNIP--
+
+exports["default"] = { result: result };
 module.exports = exports["default"];
 //# sourceMappingURL=rest-param-old.js.map

@@ -1,5 +1,5 @@
 /* eslint-disable */
-//Syntactical difference
+//Syntactical difference example
 
 //ES5
 "use strict";

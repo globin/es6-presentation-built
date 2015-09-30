@@ -184,6 +184,23 @@ apple
 							</code>
 						</pre>
 					</section>
+					<section>
+						<pre>
+							<code data-trim>
+//ES6: for-of loop
+var food = {a: "banana", b:"orange", c: "apple"};
+food.NotAnIndex = "123"
+
+for(x of food){
+console.log(x);
+}
+/*
+TypeError
+for-of only works for iterable objects
+*/
+							</code>
+						</pre>
+					</section>
 
 				</section>
 
@@ -193,11 +210,39 @@ apple
 					</section>
 					<section>
 						<h3> Arrow Functions </h3>
+							<pre>
+								<code>
+//Syntactical difference in general
+
+//ES5
+function (arguments) { expression }
+
+//ES6
+arguments => {expression}
+								</code>
+							</pre>
+					</section>
+					<section>
+						<h3> Arrow Functions </h3>
 						<div data-example-code="functions/arrow-functions"></div>
 					</section>
 					<section>
 						<h3> Arrow Functions </h3>
 						<div data-example-code="functions/arrow-functions2"></div>
+					</section>
+					<section>
+						<h3> Arrow Functions </h3>
+						<div data-example-code="functions/arrow-functions3"></div>
+					</section>
+					<section>
+						<h3> Arrow Functions </h3>
+							<pre>
+								<code>
+//Arrow Functions are not "newable"
+var Foo = (a) => {a + 1};
+var f = new Foo(); //TypeError (a) => {a+1} is not a constructor
+								</code>
+							</pre>
 					</section>
 					<section>
 						<h3>Default Parameters</h3>
@@ -209,6 +254,13 @@ apple
 					<section>
 						<h3>Default Parameters</h3>
 						<div data-example-code="functions/default-param"></div>
+					</section>
+					<section>
+						<h3>Default Parameters</h3>
+						<div data-example-code="functions/default-param-undefined"></div>
+						<aside class="notes">
+							No Problems with arrays in default params (get redefined each call from LTR)
+						</aside>
 					</section>
 					<section>
 						<h3>Rest Parameters</h3>
@@ -291,29 +343,34 @@ apple
 						<pre>
 							<code data-trim>
 //ES5
+//function constructor
 function Circle(radius) {
 	this.radius = radius;
 	Circle.circlesMade++;
 }
 
+//static property
+Circle.circlesMade = 0;
+
+//static function
 Circle.draw = function draw(circle, canvas) {
 	/* Canvas drawing code */
 };
 
-Object.defineProperty(Circle, "circlesMade", {
-	get: function() {
-		return !this._count ? 0 : this._count;
-},
-
-	set: function(val) {
-		this._count = val;
-	}
-});
-
+//instance properties/functions
 Circle.prototype = {
-	area: function area() {
-	return Math.pow(this.radius, 2) * Math.PI;
-	}
+    area() {
+        return Math.pow(this.radius, 2) * Math.PI;
+    },
+
+    get radius() {
+        return this.radius;
+    },
+    set radius(radius) {
+       if (!Number.isInteger(radius))
+           throw new Error("Circle radius must be an integer.");
+       this._radius = radius;
+    }
 };
 							</code>
 						</pre>
@@ -324,29 +381,28 @@ Circle.prototype = {
 							<code>
 //ES6
 class Circle {
-constructor(radius) {
-	this.radius = radius;
-	Circle.circlesMade++;
-};
 
+//add static property (actually already ES7)
+    static circlesMade = 0;
+
+    constructor(radius) {
+        this.radius = radius;
+        Circle.circlesMade++;
+    };
+
+//class property
 static draw(circle, canvas) {
 	// Canvas drawing code
-};
+}
 
-static get circlesMade() {
-	return !this._count ? 0 : this._count;
-};
-
-static set circlesMade(val) {
-	this._count = val;
-};
-
+//instance property
 area() {
 	return Math.pow(this.radius, 2) * Math.PI;
 };
 
+//getter and setter
 get radius() {
-	return this._radius;
+	return this.radius;
 };
 
 set radius(radius) {
@@ -358,14 +414,67 @@ set radius(radius) {
 							</code>
 						</pre>
 					</section>
-					<section>Subclassing TODO</section>
+					<section>
+						<h3>Subclassing</h3>
+						<pre>
+							<code>
+//ES6 without subclassing syntax
+class Circle {
+      constructor(radius) {
+         this.radius = radius;
+         Circle.circlesMade++;
+}
+
+// prototype of Circle inherits instance properties of Shape prototype
+Object.setPrototypeOf(Circle.prototype, Shape.prototype);
+
+//OR SHOULD I USE: Circle.prototype = Object.create(Shape.prototype)
+
+// Circle inherits static properties of Shape
+Object.setPrototypeOf(Circle, Shape);
+
+//OR SHOULD I USE: Circle = Object.create(Shape)
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>Subclassing</h3>
+						<pre>
+							<code data-trim>
+class ScalableCircle extends Circle {
+    constructor(scalingFactor){
+        super();
+        this.scalingFactor = scalingFactor;
+    }
+
+    get radius() {
+        return this.scalingFactor * super.radius;
+    }
+
+    set radius(radius) {
+        throw new Error("ScalableCircle radius is constant." +
+        "Set scaling factor instead.");
+    }
+}
+
+							</code>
+						</pre>
+					</section>
 				</section>
 
 				<section>
 					<section>
 						<h2>Generators</h2>
 					</section>
-					<section>TODO</section>
+					<section>
+						<div data-example-code="generators/basic"></div>
+					</section>
+					<section>
+						<div data-example-code="generators/fibonacci"></div>
+					</section>
+					<section>
+						<div data-example-code="generators/countdown2"></div>
+					</section>
 				</section>
 
 				<section>
