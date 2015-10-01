@@ -79,4 +79,29 @@ _revealJsJsRevealJs2['default'].initialize({
         async: true
     }]
 });
+
+window.addEventListener('mousedown', function (e) {
+    var runButton = _temporalUndefined;
+    runButton = _revealJsJsRevealJs2['default'].getCurrentSlide().querySelector('button:not([disabled])');
+    if (_temporalAssertDefined(runButton, 'runButton', _temporalUndefined) && runButton && e.which === 2) {
+        (_temporalAssertDefined(runButton, 'runButton', _temporalUndefined) && runButton).click();
+
+        return;
+    }
+
+    switch (e.which) {
+        case 2:
+            _revealJsJsRevealJs2['default'].next();
+            break;
+        case 3:
+            _revealJsJsRevealJs2['default'].prev();
+            break;
+        default:
+            break;
+    }
+});
+
+window.addEventListener('contextmenu', function (evt) {
+    evt.preventDefault();
+});
 //# sourceMappingURL=init.js.map
