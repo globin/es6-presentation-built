@@ -295,3 +295,6 @@ body {
  *********************************************/
 .reveal .slide-number {
   color: #3b759e; }
+
+.reveal pre {
+  box-shadow: none !important; }

@@ -47,7 +47,7 @@
 
                 <section>
                     <section>
-                        <h2>ES5 Background</h2>
+                        <h2>ES5 Recap</h2>
                     </section>
                     <section>
                         <h3>Short Property Notation</h3>
@@ -61,7 +61,7 @@
                     </section>
                     <section>
                         <h3>Trailing Commas</h3>
-                        <div data-example-code="es5-features/trailing-comma"></div>
+                        <div data-example-code="es5-features/trailing-commas"></div>
                         <aside class="notes">Legal since ES5 (IE9+)</aside>
                     </section>
                 </section>
@@ -107,103 +107,6 @@
                         <div data-example-code="let-const-5"></div>
                         <aside class="notes">be careful! interior mutability is unchanged</aside>
                     </section>
-                </section>
-
-                <section>
-                    <section>
-                        <h2>for-of loop</h2>
-                    </section>
-                    <section>
-                        <pre>
-                            <code>
-//ES5: for-in loop
-var food = ["banana", "orange", "apple"];
-food.NotAnIndex = "123";
-
-for(var x in food){
-    console.log(x);
-}
-/*
-0
-1
-2
-NotAnIndex
-*/
-                            </code>
-                        </pre>
-                    </section>
-                    <section>
-                        <pre>
-                            <code data-trim>
-//ES5: forEach()
-var food = ["banana", "orange", "apple"];
-
-food.forEach(function(entry){
-if(entry == "orange"){
-   break;
-}
-console.log(entry);
-});
-
-//Uncaught SyntaxError: Illegal break statement
-                            </code>
-                        </pre>
-                    </section>
-                    <section>
-                        <pre>
-                            <code data-trim>
-//ES5: forEach()
-var food = ["banana", "orange", "apple"];
-
-food.forEach(function(entry){
-    if(entry == "orange"){
-       return;
-    }
-console.log(entry);
-});
-/*
-banana
-apple
-*/
-                            </code>
-                        </pre>
-                    </section>
-                    <section>
-                        <pre>
-                            <code data-trim>
-//ES6: for-of loop
-var food = ["banana", "orange", "apple"];
-food.NotAnIndex = "123"
-
-for(x of food){
-    console.log(x);
-}
-/*
-banana
-orange
-apple
-*/
-                            </code>
-                        </pre>
-                    </section>
-                    <section>
-                        <pre>
-                            <code data-trim>
-//ES6: for-of loop
-var food = {a: "banana", b:"orange", c: "apple"};
-food.NotAnIndex = "123"
-
-for(x of food){
-console.log(x);
-}
-/*
-TypeError
-for-of only works for iterable objects
-*/
-                            </code>
-                        </pre>
-                    </section>
-
                 </section>
 
                 <section>
@@ -290,6 +193,105 @@ var f = new Foo(); //TypeError (a) => {a+1} is not a constructor
 
                 <section>
                     <section>
+                        <h2>for-of loop</h2>
+                    </section>
+                    <section>
+                        <pre>
+                            <code>
+//ES5: for-in loop
+var food = ["banana", "orange", "apple"];
+food.NotAnIndex = "123";
+
+for (var x in food) {
+    console.log(x);
+}
+/*
+0
+1
+2
+NotAnIndex
+*/
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <pre>
+                            <code data-trim>
+//ES5: forEach()
+var food = ["banana", "orange", "apple"];
+
+food.forEach(function (entry) {
+    if (entry == "orange") {
+       break;
+    }
+
+    console.log(entry);
+});
+
+//Uncaught SyntaxError: Illegal break statement
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <pre>
+                            <code data-trim>
+//ES5: forEach()
+var food = ["banana", "orange", "apple"];
+
+food.forEach(function (entry) {
+    if (entry == "orange") {
+        return;
+    }
+
+    console.log(entry);
+});
+/*
+banana
+apple
+*/
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <pre>
+                            <code data-trim>
+//ES6: for-of loop
+var food = ["banana", "orange", "apple"];
+food.NotAnIndex = "123"
+
+for (x of food) {
+    console.log(x);
+}
+/*
+banana
+orange
+apple
+*/
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <pre>
+                            <code data-trim>
+//ES6: for-of loop
+var food = {a: "banana", b:"orange", c: "apple"};
+food.NotAnIndex = "123"
+
+for (x of food) {
+    console.log(x);
+}
+/*
+TypeError
+for-of only works for iterable objects
+*/
+                            </code>
+                        </pre>
+                    </section>
+
+                </section>
+
+                <section>
+                    <section>
                         <h2>Destructuring</h2>
                     </section>
                     <section>
@@ -338,7 +340,7 @@ var f = new Foo(); //TypeError (a) => {a+1} is not a constructor
 
                 <section>
                     <section>
-                        <h2>Class + subclassing</h2>
+                        <h2>Class + Subclassing</h2>
                     </section>
                     <section>
                         <h3>Class</h3>
@@ -366,7 +368,7 @@ Circle.prototype = {
     },
 
     get radius() {
-        return this.radius;
+        return this._radius;
     },
     set radius(radius) {
        if (!Number.isInteger(radius))
@@ -384,43 +386,42 @@ Circle.prototype = {
 //ES6
 class Circle {
 
-//add static property (actually already ES7)
+    //add static property (actually already ES7)
     static circlesMade = 0;
 
     constructor(radius) {
         this.radius = radius;
         Circle.circlesMade++;
-    };
+    }
 
-//class property
-static draw(circle, canvas) {
-    // Canvas drawing code
-}
+    //class property
+    static draw(circle, canvas) {
+        // Canvas drawing code
+    }
 
-//instance property
-area() {
-    return Math.pow(this.radius, 2) * Math.PI;
-};
+    //instance property
+    area() {
+        return Math.pow(this.radius, 2) * Math.PI;
+    }
 
-//getter and setter
-get radius() {
-    return this.radius;
-};
+    //getter and setter
+    get radius() {
+        return this.radius;
+    }
 
-set radius(radius) {
-    if (!Number.isInteger(radius))
-        throw new Error("Circle radius must be an integer.");
-        this._radius = radius;
-    };
+    set radius(radius) {
+        if (!Number.isInteger(radius))
+            throw new Error("Circle radius must be an integer.");
+            this._radius = radius;
+        };
+    }
 }
                             </code>
                         </pre>
                     </section>
                     <section>
                         <h3>Subclassing</h3>
-                        <pre>
-                            <code>
-//ES6 without subclassing syntax
+                        <pre><code>//ES6 without subclassing syntax
 class Circle {
       constructor(radius) {
          this.radius = radius;
@@ -444,7 +445,7 @@ Object.setPrototypeOf(Circle, Shape);
                         <pre>
                             <code data-trim>
 class ScalableCircle extends Circle {
-    constructor(scalingFactor){
+    constructor(scalingFactor) {
         super();
         this.scalingFactor = scalingFactor;
     }
@@ -458,9 +459,55 @@ class ScalableCircle extends Circle {
         "Set scaling factor instead.");
     }
 }
-
                             </code>
                         </pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>
+                            Modules
+                        </h2>
+                    </section>
+                    <section>
+                        <div data-example-code="modules/amd"></div>
+                    </section>
+                    <section>
+                        <div data-example-code="modules/common"></div>
+                    </section>
+                    <section>
+                        <pre><code>
+import http from 'http';
+
+var toExport = {};
+
+export default toExport;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <pre><code>
+export { named1, named2 }
+
+// -----
+
+import { named1, named2 } from 'module-name';
+                        </code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Template Strings</h2>
+                    </section>
+                    <section>
+                        <div data-example-code="template-strings/template-string-1"></div>
+                    </section>
+                    <section>
+                        <div data-example-code="template-strings/template-string-2"></div>
+                    </section>
+                    <section>
+                        <div data-example-code="template-strings/template-string-3"></div>
                     </section>
                 </section>
 
@@ -481,25 +528,54 @@ class ScalableCircle extends Circle {
 
                 <section>
                     <section>
-                        <h2>Transpiler (Babel)</h2>
+                        <h2>Overview all features</h2>
                     </section>
                     <section>
-                        TODO
-                        (make sure to always include polyfill and optional ['es6.spec.blockScoping'])
+                        <h2>covered here</h2>
+                        <ul>
+                            <li>let/const</li>
+                            <li>arrow functions</li>
+                            <li>default parameters</li>
+                            <li>rest parameters</li>
+                            <li>spread operator</li>
+                            <li>for-of loop</li>
+                            <li>destructuring</li>
+                            <li>class + subclassing</li>
+                            <li>modules</li>
+                            <li>template strings</li>
+                            <li>promises</li>
+                            <li>generators</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Other Features</h2>
+                        <ul>
+                            <li>Unicode</li>
+                            <li>Map + Set + WeakMap + WeakSet</li>
+                            <li>Proxy</li>
+                            <li>Symbol</li>
+                            <li>Subclassable Built-Ins</li>
+                            <li>Math + Number + String + Array + Object APIs</li>
+                            <li>Binary and Octal Literals</li>
+                            <li>Reflect API</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>ES 7</h2>
+                        <ul>
+                            <li>Decorators</li>
+                            <li>Bind Operator</li>
+                            <li>async/await</li>
+                            <li>list/generator comprehensions</li>
+                        </ul>
                     </section>
                 </section>
             </div>
-
         </div>
 
         <script src="lib/js/head.min.js"></script>
         <script src="node_modules/babel-core/browser-polyfill.js"></script>
         <script src="node_modules/systemjs/dist/system.js"></script>
         <script src="build/module.js"></script>
-
-        <script>
-
-
-        </script>
     </body>
 </html>
