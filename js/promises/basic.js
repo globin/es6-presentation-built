@@ -1,11 +1,10 @@
 /* eslint-disable */
+// --SNIP--
 "use strict";
 
-fetch(someUrl).then(function (response) {
-    return response.text();
-})["catch"](function (error) {
-    return handleError(error);
-}).then(function (responseText) {
-    return console.log(responseText);
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+exports["default"] = {};
+module.exports = exports["default"];
 //# sourceMappingURL=basic.js.map

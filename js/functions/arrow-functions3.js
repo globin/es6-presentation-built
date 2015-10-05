@@ -21,6 +21,6 @@ myObject.test = add;
 myObject.test();
 // --SNIP--
 
-exports["default"] = {};
+exports["default"] = { myObject: myObject };
 module.exports = exports["default"];
 //# sourceMappingURL=arrow-functions3.js.map

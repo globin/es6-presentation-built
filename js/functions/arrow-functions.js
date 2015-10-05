@@ -17,6 +17,6 @@ var sum = function sum(a, b) {
 };
 // --SNIP--
 
-exports["default"] = { sum: sum() };
+exports["default"] = {};
 module.exports = exports["default"];
 //# sourceMappingURL=arrow-functions.js.map
